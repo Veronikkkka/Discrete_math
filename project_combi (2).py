@@ -1,31 +1,29 @@
-def combinations_with_replacement(elements, number):
+def combinations(r, n):
     """
-    Returns the generator of all combinations from n to r elements with repetitions in sorted order
-    >>> list(combinations_with_replacement('ABC', 2))
-    [('A', 'A'), ('A', 'C'), ('A', 'B'), ('C', 'C'), ('C', 'B'), ('B', 'B')]
-    >>> list(combinations_with_replacement([7, 9], 3))
-    [(7, 7, 7), (7, 7, 9), (7, 9, 9), (9, 9, 9)]
+    Returns n length subsequences of elements from the r.
+
+    Parameters:
+    r: iterable
+    n: length of subsequence
+
+    Returns:
+    generator of combinations of the given iterable(r)
+
+    >>> list(combinations('ABCD', 3))
+    [('A', 'B', 'C'), ('A', 'B', 'D'), ('A', 'C', 'D'), ('B', 'C', 'D')]
+    >>> list(combinations(['K', 'A', 'T', 'E'], 4))
+    [('K', 'A', 'T', 'E')]
+    >>> list(combinations(['B', 'R', 'E', 'N', 'D', 'I'], 7))
+    []
     """
-    if elements not in {tuple, list, str}:
-        raise TypeError('Incorrect input, only strings, tuples or lists are allowed')
-    elif type(number) != int:
-        raise TypeError('Incorrect input, only integers are allowed')
-    length = len(elements)
-    cells = [0] * number
-    if length == 0 or number == 0:
-        return
-    lst = []
-    for k in cells:
-        lst.append(elements[k])
-    yield tuple(lst)
-    while True:
-        for i in range(number - 1, -1, -1):
-            if cells[i] != length - 1:
-                break
-        else:
-            return
-        cells[i:] = [cells[i] + 1] * (number - i)
-        lst = []
-        for k in cells:
-            lst.append(elements[k])
-        yield tuple(lst)
+    if isinstance(r, str) or isinstance(r, list) or isinstance(r, tuple):
+        length = len(r)
+        if n == 0:
+            yield tuple()
+        elif n != 0:
+            for idx in range(n - 1, length):
+                for combi in combinations(r[:idx], n - 1):
+                    yield combi + (r[idx],)
+    else:
+        print("Something is wrong about your input!")
+        exit()
