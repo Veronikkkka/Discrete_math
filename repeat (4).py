@@ -4,7 +4,7 @@ def repeat(value, times=None):
     >>> list(repeat('ABC', 3))
     ['ABC', 'ABC', 'ABC']
     """
-    if isinstance(times, int):
+    if isinstance(times, int) and type(value) in {str, list, tuple}:
         if times is None:
             while True:
                 yield value
