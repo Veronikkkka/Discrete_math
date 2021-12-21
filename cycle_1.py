@@ -5,7 +5,7 @@ def cycle(iterable):
     elements from iterable object
     """
     if iterable not in {tuple, list, str}:
-        raise TypeError('Incorrect input, only strings or numbers are allowed')
+        raise TypeError('Incorrect input, only strings, tuples or lists are allowed')
     res = []    
     for elem in iterable:
         yield elem
