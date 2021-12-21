@@ -1,6 +1,15 @@
-def repeat(value):
+def repeat(value, times=None):
     """
     Returns an infinite iterator of duplicate values value
+    >>> list(repeat('ABC', 3))
+    ['ABC', 'ABC', 'ABC']
     """
-    while True:
-        yield value
+    if isinstance(times, int):
+        if times is None:
+            while True:
+                yield value
+        else:
+            for i in range(times):
+                yield value
+    else:
+        print(f'The type of parameter times is not integer "{times}"')
