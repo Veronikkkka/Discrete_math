@@ -22,32 +22,36 @@ def permutations(iterable, length=None):
     >>> list(permutations(['B', 'R', 'E', 'N', 'D', 'I'], 7))
     []
     """
-    if length is None:
-        length = len(iterable)
+    if isinstance(iterable, str) or isinstance(iterable, list):
+        try:
+            if length is None:
+                length = len(iterable)
 
-    if length > len(iterable):
-        return
+            if length > len(iterable):
+                return
 
-    indexes_of_eles = []
-    for i in range(len(iterable)):
-        indexes_of_eles.append(i)
+            indexes_of_eles = []
+            for i in range(len(iterable)):
+                indexes_of_eles.append(i)
 
-    cycles = []
-    for i in range(len(iterable), len(iterable)-length, -1):
-        cycles.append(i)
+            cycles = []
+            for i in range(len(iterable), len(iterable)-length, -1):
+                cycles.append(i)
 
-    yield tuple(iterable[i] for i in indexes_of_eles[:length])
+            yield tuple(iterable[i] for i in indexes_of_eles[:length])
 
-    while len(iterable) != 0:
-        for idx in range(length)[::-1]:
-            cycles[idx] -= 1
-            if cycles[idx] != 0:
-                j = cycles[idx]
-                indexes_of_eles[idx], indexes_of_eles[-j] = indexes_of_eles[-j], indexes_of_eles[idx]
-                yield tuple(iterable[i] for i in indexes_of_eles[:length])
-                break
-            elif cycles[idx] == 0:
-                indexes_of_eles[idx:] = indexes_of_eles[idx + 1:] + indexes_of_eles[idx:idx + 1]
-                cycles[idx] = len(iterable) - idx
-        else:
-            return
+            while len(iterable) != 0:
+                for idx in range(length)[::-1]:
+                    cycles[idx] -= 1
+                    if cycles[idx] != 0:
+                        j = cycles[idx]
+                        indexes_of_eles[idx], indexes_of_eles[-j] = indexes_of_eles[-j], indexes_of_eles[idx]
+                        yield tuple(iterable[i] for i in indexes_of_eles[:length])
+                        break
+                    elif cycles[idx] == 0:
+                        indexes_of_eles[idx:] = indexes_of_eles[idx + 1:] + indexes_of_eles[idx:idx + 1]
+                        cycles[idx] = len(iterable) - idx
+                else:
+                    return
+        except:
+            print("Something is wrong about your input!")
