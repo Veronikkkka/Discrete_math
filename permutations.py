@@ -22,7 +22,7 @@ def permutations(iterable, length=None):
     >>> list(permutations(['B', 'R', 'E', 'N', 'D', 'I'], 7))
     []
     """
-    if isinstance(iterable, str) or isinstance(iterable, list):
+    if isinstance(iterable, str) or isinstance(iterable, list) or isinstance(iterable, tuple):
         try:
             if length is None:
                 length = len(iterable)
